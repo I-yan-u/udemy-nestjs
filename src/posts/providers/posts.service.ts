@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { UserService } from 'src/users/providers/users.service';
+import { CreatePostsDto } from '../dtos/create-posts.dto';
 
 @Injectable()
 export class PostsService {
@@ -7,7 +8,7 @@ export class PostsService {
   /**
    * findAll
    */
-  public findAll(userId: string) {
+  public findAll(userId: number) {
     const user = this.userService.findOneById(userId);
     return [
       {
@@ -28,5 +29,13 @@ export class PostsService {
    */
   public getPosts() {
     return [];
+  }
+
+  public createPost(createPostDto: CreatePostsDto) {
+    console.log('Creating post with data: %o', createPostDto);
+    return {
+      ...createPostDto,
+      publishOn: new Date(),
+    };
   }
 }

@@ -11,8 +11,8 @@ export class AuthService {
   /**
    * login
    */
-  public login(email: string, password: string, id: string) {
-    const user = this.userService.findOneById(id);
+  public login(email: string, password: string) {
+    const user = this.userService.findOneByEmail(email);
     return { token: 'Sample_token', user };
   }
 
