@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
-import { GetUserParamDto } from '../dtos/get-users-param.dto';
+// import { GetUserParamDto } from '../dtos/get-users-param.dto';
 import { AuthService } from 'src/auth/providers/auth.service';
 import { Repository } from 'typeorm';
 import { User } from '../user.entity';
@@ -26,30 +26,11 @@ export class UserService {
   /**
    * findAll method for getting all users from db
    */
-  public findAll(
-    getUserParamDto: GetUserParamDto,
-    limit: number,
-    page: number,
-  ) {
-    const isAuth = this.authService.isAuth();
-    console.log(isAuth);
-    return [
-      {
-        firstName: 'John',
-        lastName: 'Doe',
-      },
-      {
-        firstName: 'Jane',
-        lastName: 'Doe',
-      },
-      {
-        firstName: 'John',
-        lastName: 'Durant',
-      },
-      getUserParamDto,
-      limit,
-      page,
-    ];
+  public findAll(limit: number, page: number) {
+    return this.usersRepository.find({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
   }
 
   /**
